@@ -22,7 +22,7 @@ app.use(express.json())
 
 import statusRoute from './routes/status.route.js'
 import authRouter from './routes/auth.route.js'
-import loginRouter from './routes/login.routes.js'
+/* import loginRouter from './routes/login.routes.js' */
 import { sendMail } from './utils/mail.util.js'
 import workspaceRouter from './routes/workspace.route.js'
  import channelRouter from './routes/channel.route.js'
@@ -31,8 +31,8 @@ import workspaceRouter from './routes/workspace.route.js'
 app.use("/api/status", statusRoute)
 
 app.use("/api/auth", authRouter)
-
-app.use("/api/login", loginRouter)
+/* 
+app.use("/api/login", loginRouter) */
 
 app.use("/api/workspace", workspaceRouter)
 
