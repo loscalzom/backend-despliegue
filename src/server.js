@@ -13,7 +13,7 @@ const app = express()
 const PORT = ENVIROMENT.PORT
 
 app.use(cors({
-origin: "http://localhost:5173"
+origin: ENVIROMENT.URL_FRONTEND
 
 
 }))

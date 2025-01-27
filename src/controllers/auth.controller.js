@@ -63,7 +63,7 @@ export const registerController =  async (request, response) => {
                     <h1 >Debes validar tu mail!</h1>
                     <p>Da click en el enlace de 'verificar' para poder validar tu mail</p>
                     <a 
-                        href='http://localhost:${ENVIROMENT.PORT}/api/auth/verify-email?${QUERY.VERIFICATION_TOKEN}=${verificationToken}'
+                        href='${ENVIROMENT.URL_BACKEND}/api/auth/verify-email?${QUERY.VERIFICATION_TOKEN}=${verificationToken}'
                     >
                         Verificar
                     </a>
