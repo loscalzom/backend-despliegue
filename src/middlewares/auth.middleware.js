@@ -5,18 +5,21 @@ export const authMiddleware = (request, response, next) => {
     
         const access_token = request.headers.authorization.split(' ')[1]
 
-        //Cuando hacemos el verify ademas de verificar la firma del token tambien transformamos el token en objeto nuevamente
+        if (!access_token) {
+            return response.status(401).json({ ok: false, message: 'Token no proporcionado' });
+        }
+
         const user_info = jwt.verify(access_token, ENVIROMENT.SECRET_KEY_JWT)
         
         request.user = user_info
         return next()
     }
     catch(error){
-        console.error(error)
-        response.json({
+        console.error('Error en la autenticación:', error);
+        return response.status(401).json({
             ok: false,
-            status: 401,
-            message: 'Unauthorized'
+            message: 'Unauthorized',
+            error: error.message
         })
     }
 }
