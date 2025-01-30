@@ -40,10 +40,13 @@ app.use("/api/channel", channelRouter)
 
 
 
+
+
+
+app.listen(PORT, () => {    
+    console.log(`El servidor se esta ejecutando en el puerto ${PORT}`)}) 
+
 export default app
 
-
-/* app.listen(PORT, () => {    
-    console.log(`El servidor se esta ejecutando en el puerto ${PORT}`)}) */
 /* 
     sendMail({to: "marceloscalzo@gmail.com",subject: "mensaje de  prueba", html:`<h1>Hola desde Node.js</h1>`}) */
