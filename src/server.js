@@ -2,10 +2,10 @@ import express from 'express'
 
 import ENVIROMENT from './config/enviroment.js'
 
-import mongoose from './config/mongoDB.config.js'
+/* import mongoose from './config/mongoDB.config.js'
 import connectDB from './config/mongoDB.config.js'
 
-import User from './models/User.model.js'
+import User from './models/User.model.js' */
 import cors from 'cors'
 
 const app = express()
