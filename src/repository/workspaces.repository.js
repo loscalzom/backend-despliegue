@@ -65,7 +65,7 @@ class WorkspaceRepository {
         if(!workspace){
             throw new ServerError('Workspace not found', 404)
         }
-        if(workspace.owner !== user_id){
+        if(Number(workspace.owner) !== Numberuser_id){
             throw new ServerError('User is not the owner', 403)
         }   
         const queryExistingMember = `
