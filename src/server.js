@@ -1,6 +1,6 @@
-const express = require('express')
+import express from 'express'
 
-import ENVIROMENT from './src/config/enviroment.js'
+import ENVIROMENT from './config/enviroment.js'
 
 /* import mongoose from './config/mongoDB.config.js'
 import connectDB from './config/mongoDB.config.js'
@@ -20,12 +20,12 @@ origin: ENVIROMENT.URL_FRONTEND
 
 app.use(express.json())
 
-import statusRoute from './src/routes/status.route.js'
-import authRouter from './src/routes/auth.route.js'
+import statusRoute from './routes/status.route.js'
+import authRouter from './routes/auth.route.js'
 /* import loginRouter from './routes/login.routes.js' */
-import { sendMail } from './src/utils/mail.util.js'
-import workspaceRouter from './src/routes/workspace.route.js'
- import channelRouter from './src/routes/channel.route.js'
+import { sendMail } from './utils/mail.util.js'
+import workspaceRouter from './routes/workspace.route.js'
+ import channelRouter from './routes/channel.route.js'
 
 
 app.use("/api/status", statusRoute)
