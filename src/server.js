@@ -1,54 +1,34 @@
-import express from 'express'
+import express from 'express';
+import ENVIROMENT from './config/enviroment.js';
+import cors from 'cors';
 
-import ENVIROMENT from './config/enviroment.js'
+const app = express();
+const PORT = ENVIROMENT.PORT;
 
-/* import mongoose from './config/mongoDB.config.js'
-import connectDB from './config/mongoDB.config.js'
-
-import User from './models/User.model.js' */
-import cors from 'cors'
-
-const app = express()
-
-const PORT = ENVIROMENT.PORT
-
-console.log('Servidor arrancando...')
+console.log('Servidor arrancando...');
 
 app.use(cors({
-origin: ENVIROMENT.URL_FRONTEND
+  origin: ENVIROMENT.URL_FRONTEND
+}));
+app.use(express.json());
 
+import statusRoute from './routes/status.route.js';
+import authRouter from './routes/auth.route.js';
+import workspaceRouter from './routes/workspace.route.js';
+import channelRouter from './routes/channel.route.js';
 
-}))
+// Importa tu middleware de autenticación
+import { authMiddleware } from './middlewares/auth.middleware.js';
 
-app.use(express.json())
+app.use("/api/status", statusRoute);
+app.use("/api/auth", authRouter);
+app.use("/api/workspace", authMiddleware, workspaceRouter); // Aplica el middleware de autenticación aquí
+app.use("/api/channel", channelRouter);
 
-import statusRoute from './routes/status.route.js'
-import authRouter from './routes/auth.route.js'
-/* import loginRouter from './routes/login.routes.js' */
-import { sendMail } from './utils/mail.util.js'
-import workspaceRouter from './routes/workspace.route.js'
- import channelRouter from './routes/channel.route.js'
-
-
-app.use("/api/status", statusRoute)
-
-app.use("/api/auth", authRouter)
-/* 
-app.use("/api/login", loginRouter) */
-
-app.use("/api/workspace", workspaceRouter)
-
-app.use("/api/channel", channelRouter)
-
-
-
-
-
+app.get('/test', (req, res) => {
+  res.send('El servidor está funcionando correctamente.');
+});
 
 app.listen(PORT, () => {    
-    console.log(`El servidor se esta ejecutando en el puerto ${PORT}`)}) 
-
-/* export default app */
-
-/* 
-    sendMail({to: "marceloscalzo@gmail.com",subject: "mensaje de  prueba", html:`<h1>Hola desde Node.js</h1>`}) */
+  console.log(`El servidor se está ejecutando en el puerto ${PORT}`);
+});
