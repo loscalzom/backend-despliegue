@@ -12,6 +12,8 @@ const app = express()
 
 const PORT = ENVIROMENT.PORT
 
+console.log('Servidor arrancando...')
+
 app.use(cors({
 origin: ENVIROMENT.URL_FRONTEND
 
