@@ -50,7 +50,7 @@ export const inviteUserToWorkspaceController = async (req, res) =>{
         if(!user_invited){
             throw new ServerError('User not found', 404)
         }
-        const workspace_modified = await WorkspaceRepository.addMemberToWorkspace(workspace_id, user_invited._id)
+        const workspace_modified = await WorkspaceRepository.addMemberToWorkspace(workspace_id, id, user_invited._id)
         return res.json({
             ok: true,
             status: 201,

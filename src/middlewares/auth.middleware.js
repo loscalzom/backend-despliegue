@@ -19,6 +19,8 @@ export const authMiddleware = (request, response, next) => {
 
     const user_info = jwt.verify(access_token, ENVIROMENT.SECRET_KEY_JWT);
     request.user = user_info;
+
+    console.log("Usuario autenticado:", request.user)
     return next();
   } catch (error) {
     console.error('Error en la autenticación:', error);
@@ -28,4 +30,5 @@ export const authMiddleware = (request, response, next) => {
       error: error.message
     });
   }
+  
 };

@@ -57,6 +57,8 @@ class WorkspaceRepository {
         const querySelectWorkspace = `SELECT * FROM workspaces 
         WHERE _id = ?`
         const [result] = await pool.execute(querySelectWorkspace, [workspace_id])
+
+        console.log("Workspace encontrado:", result[0])
         return result[0] || null
     }
 
@@ -65,7 +67,11 @@ class WorkspaceRepository {
         if(!workspace){
             throw new ServerError('Workspace not found', 404)
         }
-        if(Number(workspace.owner) !== Number(user_id)){
+
+    
+
+
+        if(String(workspace.owner) !== String(user_id)){
             throw new ServerError('User is not the owner', 403)
         }   
         const queryExistingMember = `
