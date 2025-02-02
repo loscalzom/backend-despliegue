@@ -39,6 +39,13 @@ class WorkspaceRepository {
         .populate('owner', 'username')
     }
     */
+
+    constructor() {
+        console.log('WorkspaceRepository instanciado');
+    }
+
+
+
     async createWorkspace ({name, id }){
         const queryInsertWorkspace = `INSERT INTO workspaces (name, owner) VALUES (?, ?)`
 
