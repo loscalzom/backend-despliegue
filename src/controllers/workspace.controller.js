@@ -103,4 +103,23 @@ export const getWorkspacesController = async (req, res) =>{
             status: 500,
         })
     }
+
+    
+}
+export const getWorkspaceByIdController = async (req, res) => {
+    try {
+        const { workspace_id } = req.params; // Obtener el ID del workspace desde la URL
+        console.log("Workspace ID recibido:", workspace_id); // Depuración
+
+        const workspace = await WorkspaceRepository.getWorkspaceById(workspace_id);
+
+        if (!workspace) {
+            return res.status(404).json({ ok: false, message: "Workspace no encontrado" });
+        }
+
+        res.json({ ok: true, status: 200, data: workspace });
+    } catch (error) {
+        console.error(error);
+        return res.status(500).json({ ok: false, message: "Internal server error" });
+    }
 }
