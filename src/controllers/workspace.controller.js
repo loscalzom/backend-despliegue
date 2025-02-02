@@ -111,6 +111,8 @@ export const getWorkspaceByIdController = async (req, res) => {
         const { workspace_id } = req.params; // Obtener el ID del workspace desde la URL
         console.log("Workspace ID recibido:", workspace_id); // Depuración
 
+        console.log(WorkspaceRepository)
+
         const workspace = await WorkspaceRepository.getWorkspaceById(workspace_id);
 
         if (!workspace) {
