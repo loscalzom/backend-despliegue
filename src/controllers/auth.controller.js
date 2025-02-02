@@ -183,7 +183,7 @@ export const loginController =  async (req, res) => {
 
         const access_token = jwt.sign(user_info, ENVIROMENT.SECRET_KEY_JWT)
 
-
+        console.log('Access Token:', access_token)
 
         return res.json({
             ok: true,
