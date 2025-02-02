@@ -122,6 +122,17 @@ class WorkspaceRepository {
         const [result] = await pool.execute(query, [user_id, workspace_id])
         return Boolean(result.length)
     }
+    async getWorkspaceByOwnerId(owner_id) {
+        const querySelectWorkspace = `
+            SELECT * FROM workspaces WHERE owner = ?
+        `;
+        const [result] = await pool.execute(querySelectWorkspace, [owner_id]);
+        console.log("Workspace encontrado por owner:", result[0]);
+        return result[0] || null;
+    }
+
+
+
 }
 /* result = {
     workspace_id: 1,
