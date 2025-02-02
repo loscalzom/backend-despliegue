@@ -5,6 +5,7 @@ import User from '../models/User.model.js'
 import { sendMail } from '../utils/mail.util.js'
 import bcrypt from 'bcrypt'
 import UserRepository from '../repository/user.repository.js'
+import workspacesRepository from '../repository/workspaces.repository.js'
 
 
 const QUERY = {
@@ -172,7 +173,7 @@ export const loginController =  async (req, res) => {
                 message: "Wrong password",
             });
         }
-        const workspace = await WorkspaceRepository.getWorkspaceByOwnerId(user_found._id)
+        const workspace = await workspacesRepository.getWorkspaceByOwnerId(user_found._id)
 
         //Quiero transformar al user a un token
         const user_info =  {
