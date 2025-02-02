@@ -276,4 +276,4 @@ export const resetPasswordController = async (req, res) =>{
             status: 500,
         })
     }
-}  
+}   

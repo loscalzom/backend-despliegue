@@ -23,7 +23,7 @@ export const authMiddleware = (request, response, next) => {
     console.log("Usuario autenticado:", request.user)
     return next();
   } catch (error) {
-    console.error('Error en la autenticación:', error);
+    console.error('Error en la autenticación:', error.message);
     return response.status(401).json({
       ok: false,
       message: 'Unauthorized',
