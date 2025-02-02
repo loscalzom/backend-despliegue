@@ -138,6 +138,9 @@ class WorkspaceRepository {
         return result[0] || null;
     }
     async getWorkspaceById(workspace_id) {
+
+        console.log("Consultando workspace por ID:", workspace_id)
+
         const querySelectWorkspace = `SELECT * FROM workspaces WHERE _id = ?`;
         const [result] = await pool.execute(querySelectWorkspace, [workspace_id]);
         
