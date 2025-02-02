@@ -172,7 +172,7 @@ export const loginController =  async (req, res) => {
                 message: "Wrong password",
             });
         }
-
+        const workspace = await WorkspaceRepository.getWorkspaceByOwnerId(user_found._id)
 
         //Quiero transformar al user a un token
         const user_info =  {
@@ -195,7 +195,8 @@ export const loginController =  async (req, res) => {
                     name: user_found.name,
                     email: user_found.email,
                 },
-                access_token: access_token
+                access_token: access_token,
+                workspace,
             },
         });
     }
