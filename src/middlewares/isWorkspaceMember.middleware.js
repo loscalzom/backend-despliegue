@@ -1,5 +1,5 @@
 import Workspace from "../models/Workspace.model.js"
-import workspaceRepository from "../repository/workspaces.repository.js"
+import WorkspaceRepository from "../repository/workspaces.repository.js"
 
 
 const isWorkspaceMemberMiddleware = async (req, res, next) =>{
@@ -7,7 +7,7 @@ const isWorkspaceMemberMiddleware = async (req, res, next) =>{
         const {id} = req.user
         const {workspace_id} = req.params
 
-        const workspace_selected = await workspaceRepository.findWorkspaceById(workspace_id)
+        const workspace_selected = await WorkspaceRepository.findWorkspaceById(workspace_id)
         if(!workspace_selected){
             return res.json({
                 status: 404,
