@@ -15,7 +15,7 @@ const isWorkspaceMemberMiddleware = async (req, res, next) =>{
                 message: "Workspace not found"
             })
         }
-        if(!workspaceRepository.isUserMemberOfWorkspace(id, workspace_id)){
+        if(!WorkspaceRepository.isUserMemberOfWorkspace(id, workspace_id)){
             return res.json({
                 status: 403,
                 ok: false,
