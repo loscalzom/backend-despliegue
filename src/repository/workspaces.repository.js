@@ -139,17 +139,21 @@ class WorkspaceRepository {
         return result[0] || null;
     }
     async getWorkspaceById(workspace_id) {
-
-        console.log("Consultando workspace por ID:", workspace_id)
-
-        const querySelectWorkspace = `SELECT * FROM workspaces WHERE _id = ?`;
-        const [result] = await pool.execute(querySelectWorkspace, [workspace_id]);
-        
-        console.log("Workspace encontrado:", result[0]);
+        console.log("🟢 getWorkspaceById se está ejecutando con ID:", workspace_id);
     
-        return result[0] || null;
+        const querySelectWorkspace = `SELECT * FROM workspaces WHERE _id = ?`;
+        console.log("📝 Ejecutando consulta SQL:", querySelectWorkspace, "con ID:", workspace_id);
+    
+        try {
+            const [result] = await pool.execute(querySelectWorkspace, [workspace_id]);
+            console.log("📌 Resultado de la consulta:", result);
+    
+            return result[0] || null;
+        } catch (error) {
+            console.error("❌ Error en la consulta SQL:", error);
+            throw new Error("Error al obtener el workspace desde la base de datos");
+        }
     }
-
 
 }
 /* result = {
