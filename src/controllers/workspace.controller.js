@@ -4,6 +4,7 @@ import WorkspaceRepository from "../repository/workspaces.repository.js"
 import UserRepository from "../repository/user.repository.js"
 import { ServerError } from "../utils/errors.util.js"
 
+console.log("✅ WorkspaceRepository cargado:", WorkspaceRepository);
 export const createWorkspaceController = async (req, res) =>{
     try{
         const {name} = req.body
@@ -107,6 +108,8 @@ export const getWorkspacesController = async (req, res) =>{
     
 }
 export const getWorkspaceByIdController = async (req, res) => {
+
+    console.log("📢 getWorkspaceByIdController se está ejecutando")
     try {
         const { workspace_id } = req.params; // Obtener el ID del workspace desde la URL
         console.log("Workspace ID recibido:", workspace_id); // Depuración
