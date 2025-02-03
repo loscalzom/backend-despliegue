@@ -4,6 +4,8 @@ import WorkspaceRepository from "../repository/workspaces.repository.js"
 import UserRepository from "../repository/user.repository.js"
 import { ServerError } from "../utils/errors.util.js"
 
+
+console.log("✅ Métodos disponibles en WorkspaceRepository:", Object.keys(WorkspaceRepository));
 console.log("✅ WorkspaceRepository cargado:", WorkspaceRepository);
 export const createWorkspaceController = async (req, res) =>{
     try{
