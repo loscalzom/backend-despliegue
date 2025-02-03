@@ -117,7 +117,8 @@ class WorkspaceRepository {
                 name: workspace.workspace_name,
                 owner: {
                     username: workspace.owner_username,
-                    email: workspace.owner_email
+                    email: workspace.owner_email,
+                    channels: []
                 }
             }
         })
