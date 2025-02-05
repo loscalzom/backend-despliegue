@@ -52,6 +52,7 @@ class UserRepository{
             WHERE email = ?
         `;
         const [result] = await pool.execute(queryStr, [newPassword, email]);
+        console.log('Update result:', result);
         return result;
     }
 }
