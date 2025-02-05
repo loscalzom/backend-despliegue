@@ -21,3 +21,4 @@ transporter.sendMail({
         console.log('Email sent:', info.response);
     }
 });
+export default transporter;
