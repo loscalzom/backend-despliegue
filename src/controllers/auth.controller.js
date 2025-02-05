@@ -254,28 +254,39 @@ export const forgotPasswordController = async (req, res) =>{
 } 
 
 export const resetPasswordController = async (req, res) =>{
-    try{
-        const {reset_token} = req.query
-        const {password} = req.body
+    try {
+        const { reset_token } = req.query;
+        const { password } = req.body;
 
-        const {email} = jwt.verify(reset_token, ENVIROMENT.SECRET_KEY_JWT)
-        const user_found = await UserRepository.findUserByEmail(email)
-        const password_hash = await bcrypt.hash(password, 10)
+        // Verifica el token y extrae el email
+        const { email } = jwt.verify(reset_token, ENVIROMENT.SECRET_KEY_JWT);
+        
+        // Hash de la nueva contraseña
+        const password_hash = await bcrypt.hash(password, 10);
 
-        user_found.password = password_hash
-        await user_found.save()
+        // Llama a la función para actualizar la contraseña en la base de datos
+        const updateResult = await UserRepository.updateUserPassword(email, password_hash);
+
+        // Verifica si la actualización fue exitosa
+        if (updateResult.affectedRows > 0) {
+            return res.json({
+                ok: true,
+                status: 200,
+                message: 'Password changed successfully',
+            });
+        } else {
+            return res.json({
+                ok: false,
+                message: 'No user found with that email',
+                status: 404,
+            });
+        }
+    } catch (error) {
+        console.error(error);
         return res.json({
-            ok: true,
-            status: 200, 
-            message: 'Password changed'
-        })
-    }
-    catch(error){
-        console.error(error)
-        return res.json({
-            ok:false,
+            ok: false,
             message: "Internal server error",
             status: 500,
-        })
+        });
     }
-}   
+};

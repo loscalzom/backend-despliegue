@@ -71,6 +71,16 @@ class UserRepository{
         `
         await pool.execute(queryStr, [user_id])
     }
+
+    async updateUserPassword(email, newPassword) {
+        const queryStr = `
+            UPDATE USERS
+            SET password = ?
+            WHERE email = ?
+        `;
+        const [result] = await pool.execute(queryStr, [newPassword, email]);
+        return result;
+    }
 }
 
 export default new UserRepository()
