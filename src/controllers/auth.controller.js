@@ -22,7 +22,7 @@ const findUserByEmail = async (email) =>{
 
 //Crear usuario
 
-const createUser = async ({username, email, password, verificationToken}) =>{
+/* const createUser = async ({username, email, password, verificationToken}) =>{
     const nuevo_usuario = new User({
         username,
         email, 
@@ -31,7 +31,7 @@ const createUser = async ({username, email, password, verificationToken}) =>{
         modifiedAt: null
     })
     return nuevo_usuario.save()
-}
+} */
 
 
 
