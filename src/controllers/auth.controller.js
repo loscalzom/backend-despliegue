@@ -277,13 +277,22 @@ export const resetPasswordController = async (req, res) => {
         const password_hash = await bcrypt.hash(password, 10);
 
         // Llama a la función para actualizar la contraseña en la base de datos
-        await UserRepository.updateUserPassword(email, password_hash);
+        const updateResult = await UserRepository.updateUserPassword(email, password_hash);
 
-        return res.json({
-            ok: true,
-            message: 'Password changed successfully',
-            status: 200,
-        });
+        // Verifica si la actualización fue exitosa
+        if (updateResult.affectedRows > 0) {
+            return res.json({
+                ok: true,
+                message: 'Password changed successfully',
+                status: 200,
+            });
+        } else {
+            return res.status(500).json({
+                ok: false,
+                message: 'Failed to update password',
+                status: 500,
+            });
+        }
     } catch (error) {
         console.error(error);
         return res.status(500).json({
