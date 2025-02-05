@@ -20,22 +20,6 @@ const findUserByEmail = async (email) =>{
 }
 
 
-//Crear usuario
-
-/* const createUser = async ({username, email, password, verificationToken}) =>{
-    const nuevo_usuario = new User({
-        username,
-        email, 
-        password,
-        verificationToken,
-        modifiedAt: null
-    })
-    return nuevo_usuario.save()
-} */
-
-
-
-//Modificar/Migrar el controlador de registro para usar MongoDB (Ya no mas filesystem)
 
 export const registerController =  async (request, response) => {
     try {
