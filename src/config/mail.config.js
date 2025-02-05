@@ -1,15 +1,23 @@
-import nodemailer from "nodemailer";
-import ENVIROMENT from "./enviroment.js"
+import nodemailer from 'nodemailer';
+import ENVIROMENT from './config/enviroment.js';
 
- const transporter = nodemailer.createTransport({
-    service: "gmail",   
+const transporter = nodemailer.createTransport({
+    service: 'gmail',
     auth: {
-        user: ENVIROMENT.EMAIL_USERNAME,    
-        pass: ENVIROMENT.EMAIL_PASSWORD         
-    }})
+        user: ENVIROMENT.EMAIL_USERNAME,
+        pass: ENVIROMENT.EMAIL_PASSWORD,
+    },
+});
 
-    console.log({
-        user: ENVIROMENT.EMAIL_USERNAME,    
-        pass: ENVIROMENT.EMAIL_PASSWORD         
-    })
-    export default transporter
+transporter.sendMail({
+    from: ENVIROMENT.EMAIL_USERNAME,
+    to: 'test@example.com',
+    subject: 'Test Email',
+    text: 'This is a test email',
+}, (error, info) => {
+    if (error) {
+        console.log('Error sending email:', error);
+    } else {
+        console.log('Email sent:', info.response);
+    }
+});
