@@ -237,14 +237,42 @@ export const forgotPasswordController = async (req, res) =>{
     }
 } 
 
-export const resetPasswordController = async (req, res) =>{
+export const resetPasswordController = async (req, res) => {
     try {
         const { reset_token } = req.query;
         const { password } = req.body;
 
         // Verifica el token y extrae el email
-        const { email } = jwt.verify(reset_token, ENVIROMENT.SECRET_KEY_JWT);
-        
+        let email;
+        try {
+            email = jwt.verify(reset_token, ENVIROMENT.SECRET_KEY_JWT).email;
+        } catch (error) {
+            return res.status(400).json({
+                ok: false,
+                message: 'Invalid or expired token',
+                status: 400,
+            });
+        }
+
+        // Verificar si la nueva contraseña es válida (por ejemplo, longitud mínima)
+        if (password.length < 8) {
+            return res.status(400).json({
+                ok: false,
+                message: 'Password must be at least 8 characters long',
+                status: 400,
+            });
+        }
+
+        // Verifica que el usuario existe
+        const user = await UserRepository.findUserByEmail(email);
+        if (!user) {
+            return res.status(404).json({
+                ok: false,
+                message: 'No user found with that email',
+                status: 404,
+            });
+        }
+
         // Hash de la nueva contraseña
         const password_hash = await bcrypt.hash(password, 10);
 
@@ -255,19 +283,19 @@ export const resetPasswordController = async (req, res) =>{
         if (updateResult.affectedRows > 0) {
             return res.json({
                 ok: true,
-                status: 200,
                 message: 'Password changed successfully',
+                status: 200,
             });
         } else {
-            return res.json({
+            return res.status(500).json({
                 ok: false,
-                message: 'No user found with that email',
-                status: 404,
+                message: 'Failed to update password',
+                status: 500,
             });
         }
     } catch (error) {
         console.error(error);
-        return res.json({
+        return res.status(500).json({
             ok: false,
             message: "Internal server error",
             status: 500,
