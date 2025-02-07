@@ -104,35 +104,34 @@ export const sendMessageController = async (req, res) =>{
 }
 
 
-export const getMessagesFromChannelController = async (req, res) =>{
-    try{
-        const {channel_id, workspace_id} = req.params
-        const channel_selected = await ChannelRepository.getChannelById(channel_id)
-        if(!channel_selected){
+export const getMessagesFromChannelController = async (req, res) => {
+    try {
+        const { channel_id, workspace_id } = req.params;
+        const channel_selected = await ChannelRepository.getChannelById(channel_id);
+        if (!channel_selected) {
             return res.json({
                 ok: false,
                 message: 'Channel not found',
                 status: 404
-            })
+            });
         }
 
-        const messages = await MessageRepository.getAllMessagesFromChannel( channel_id )
+        const messages = await MessageRepository.getAllMessagesFromChannel(channel_id);
         
         return res.json({
-            ok:true,
+            ok: true,
             status: 200,
             message: 'Messages list',
             data: {
                 messages
             }
-        })
-    }
-    catch(error){
-        console.error(error)
+        });
+    } catch (error) {
+        console.error(error);
         return res.json({
-            ok:false,
+            ok: false,
             message: "Internal server error",
             status: 500,
-        })
+        });
     }
-}
+};
