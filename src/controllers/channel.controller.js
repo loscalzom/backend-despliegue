@@ -123,7 +123,6 @@ export const getMessagesFromChannelController = async (req, res) =>{
             status: 200,
             message: 'Messages list',
             data: {
-                channel_name: channel_selected.name, // Aquí incluimos el nombre del canal
                 messages
             }
         })
