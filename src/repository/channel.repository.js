@@ -28,9 +28,12 @@ class ChannelRepository{
         return {_id: result.insertId, name, workspace: workspace_id, createdBy: user_id}
     }
     async getAllChannelsByWorkspaceId (workspace_id){
-        const query = `SELECT * FROM channels WHERE workspace = ?`
-        const [channels] = await pool.execute(query, [workspace_id])
-        return channels
+        const query = `SELECT * FROM channels WHERE workspace = ?`;
+        const [channels] = await pool.execute(query, [workspace_id]);
+    
+        console.log("📌 Resultado de la consulta SQL de canales:", channels);
+    
+        return channels;
     }
 
     async getChannelById (channel_id) {
