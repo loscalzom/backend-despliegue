@@ -49,9 +49,12 @@ export const getChannelsListController = async (req, res) =>{
             status: 200,
             message: 'Channels list',
             data: {
-                channels
+                channels: channels.map(channel => ({
+                    ...channel, 
+                    _id: channel._id 
+                }))
             }
-        })
+        });
     }
     catch(error){
         console.error(error)
