@@ -36,12 +36,16 @@ export const registerController = async (request, response) => {
         }
 
         const password_hash = await bcrypt.hash(password, 10);
+        const verificationToken = jwt.sign({ email }, ENVIROMENT.SECRET_KEY_JWT, { expiresIn: '1d' });
+        console.log("Verification token:", verificationToken);
+
+
+
         const new_user = await UserRepository.createUser({ username, email, password: password_hash,verification_token });
 
         // Solo se envía el correo de verificación si la creación del usuario es exitosa
         if (new_user) {
-            const verificationToken = jwt.sign({ email }, ENVIROMENT.SECRET_KEY_JWT, { expiresIn: '1d' });
-            console.log("Verification token:", verificationToken);
+            
             await sendMail({
                 to: email,
                 subject: 'Valida tu mail',
