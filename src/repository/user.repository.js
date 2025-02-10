@@ -4,6 +4,11 @@ import User from "../models/User.model.js";
 class UserRepository{
    
     async createUser({username, email, password, verificationToken}){
+        console.log("Datos recibidos en createUser:", { username, email, password, verificationToken });
+        if (username === undefined || email === undefined || password === undefined || verificationToken === undefined) {
+            throw new Error("Uno de los parámetros es undefined");
+        }
+
         const queryStr =  `
         INSERT INTO USERS (username, email, password, verificationToken)
         VALUES (?, ?, ?, ?)
