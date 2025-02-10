@@ -134,6 +134,16 @@ class WorkspaceRepository {
         // Si no se encuentran canales, retornamos un arreglo vacío
         return channels || [];
     }
+    async getWorkspaceByUserId(user_id) {
+        const querySelectWorkspace = `
+            SELECT workspaces._id AS workspace_id, workspaces.name AS workspace_name
+            FROM workspaces
+            JOIN workspace_members ON workspace_members.workspace_id = workspaces._id
+            WHERE workspace_members.user_id = ?
+        `;
+        const [result] = await pool.execute(querySelectWorkspace, [user_id]);
+        return result[0] || null;
+    }
 
 }
 /* result = {
