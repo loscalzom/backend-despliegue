@@ -39,9 +39,8 @@ export const registerController = async (request, response) => {
 
         // Generar el verificationToken antes de crear el usuario
         const verificationToken = jwt.sign({ email }, ENVIROMENT.SECRET_KEY_JWT, { expiresIn: '1d' });
-        console.log("Verification token:", verificationToken);  // Depuración
-
-        const new_user = await UserRepository.createUser({ username, email, password: password_hash, verification_token: verificationToken });
+        console.log("Verification token before calling createUser:", verificationToken)
+        const new_user = await UserRepository.createUser({ username, email, password: password_hash, verification_token:verificationToken });
 
         // Solo se envía el correo de verificación si la creación del usuario es exitosa
         if (new_user) {
