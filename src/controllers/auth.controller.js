@@ -154,12 +154,16 @@ export const loginController = async (req, res) => {
                 message: "Wrong password",
             });
         }
-        const workspace = await workspacesRepository.getWorkspaceByOwnerId(parseInt(user_found._id, 10));
+
+        const user_id = parseInt(user_found._id, 10);
+        console.log("User ID en formato número:", user_id);
+
+        const workspace = await workspacesRepository.getWorkspaceByUserId(user_id);
 
 
         // Quiero transformar al user a un token
         const user_info = {
-            id: parseInt(user_found._id, 10), // 🔥 Convierte explícitamente a número
+            id: user_id, // 🔥 Convierte explícitamente a número
             name: user_found.username, // `user_found.name` no existe en la base de datos
             email: user_found.email,
         };
