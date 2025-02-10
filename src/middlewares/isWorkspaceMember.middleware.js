@@ -2,8 +2,8 @@ import WorkspaceRepository from "../repository/workspaces.repository.js";
 
 const isWorkspaceMemberMiddleware = async (req, res, next) => {
     try {
-        const { id } = req.user;  // El id del usuario está en el payload del token o en el request
-        const { workspace_id } = req.params;  // El workspace_id está en los parámetros de la URL
+        const { id } = req.user;  // ID del usuario extraído del payload del token
+        const { workspace_id } = req.params;  // workspace_id extraído de los parámetros de la URL
 
         // Verificar si el workspace existe
         const workspace_selected = await WorkspaceRepository.findWorkspaceById(workspace_id);
@@ -23,9 +23,9 @@ const isWorkspaceMemberMiddleware = async (req, res, next) => {
             });
         }
 
-        // Si todo está bien, pasamos al siguiente middleware o controlador
+        // Si todo está bien, se adjunta el workspace encontrado al objeto `req` y se llama a `next()`
         req.workspace_selected = workspace_selected;
-        next();
+        next();  // Llamamos al siguiente middleware o controlador
     } catch (error) {
         console.error(error);
         return res.status(500).json({
