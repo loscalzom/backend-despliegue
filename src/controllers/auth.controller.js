@@ -5,7 +5,7 @@ import User from '../models/User.model.js';
 import { sendMail } from '../utils/mail.util.js';
 import bcrypt from 'bcrypt';
 import UserRepository from '../repository/user.repository.js';
-import workspacesRepository from '../repository/workspaces.repository.js';
+import WorkspacesRepository from '../repository/workspaces.repository.js';
 
 const QUERY = {
     VERIFICATION_TOKEN: 'verification_token'
@@ -158,7 +158,7 @@ export const loginController = async (req, res) => {
         const user_id = parseInt(user_found._id, 10);
         console.log("User ID en formato número:", user_id);
 
-        const workspace = await workspacesRepository.getWorkspaceByUserId(user_id);
+        const workspace = await WorkspacesRepository.getWorkspaceByUserId(user_id);
 
 
         // Quiero transformar al user a un token
