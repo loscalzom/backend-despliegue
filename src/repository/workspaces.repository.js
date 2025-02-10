@@ -120,6 +120,21 @@ class WorkspaceRepository {
         }
     }
 
+
+    async getChannelsByWorkspaceIdAndUserId(workspace_id, user_id) {
+        const querySelectChannels = `
+            SELECT c._id AS channel_id, c.name AS channel_name
+            FROM channels c
+            JOIN workspace_members wm ON wm.workspace_id = c.workspace_id
+            WHERE wm.user_id = ? AND c.workspace_id = ?
+        `;
+
+        const [channels] = await pool.execute(querySelectChannels, [user_id, workspace_id]);
+
+        // Si no se encuentran canales, retornamos un arreglo vacío
+        return channels || [];
+    }
+
 }
 /* result = {
     workspace_id: 1,
