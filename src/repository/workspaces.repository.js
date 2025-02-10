@@ -130,6 +130,7 @@ class WorkspaceRepository {
         `;
 
         const [channels] = await pool.execute(querySelectChannels, [user_id, workspace_id]);
+        console.log("📌 Canales obtenidos del backend:", channels);
 
         // Si no se encuentran canales, retornamos un arreglo vacío
         return channels || [];
