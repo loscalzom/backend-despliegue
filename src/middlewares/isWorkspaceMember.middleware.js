@@ -14,23 +14,12 @@ const isWorkspaceMemberMiddleware = async (req, res, next) => {
             });
         }
 
-        // Convertimos el user_id de la base de datos (número) a string antes de comparar
-        const user_id_db = String(workspace_selected.owner); // Convertir a string
-
         // Verificar si el usuario es miembro del workspace
         const isMember = await WorkspaceRepository.isUserMemberOfWorkspace(id, workspace_id);
         if (!isMember) {
             return res.status(403).json({
                 ok: false,
                 message: 'You are not a member of this workspace'
-            });
-        }
-
-        // Comparar el user_id del token con el del workspace (ya convertido a string)
-        if (id !== user_id_db) {
-            return res.status(403).json({
-                ok: false,
-                message: 'You are not the owner of this workspace'
             });
         }
 
