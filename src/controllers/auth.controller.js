@@ -158,7 +158,7 @@ export const loginController = async (req, res) => {
 
         // Quiero transformar al user a un token
         const user_info = {
-            id: user_found._id,
+            id: Number(user_found._id),
             name: user_found.name,
             email: user_found.email,
         };
