@@ -3,37 +3,41 @@ import User from "../models/User.model.js";
 
 class UserRepository{
    
-    async createUser({username, email, password, verificationToken}){
+    async createUser({ username, email, password, verificationToken }) {
         console.log("Datos recibidos en createUser:");
         console.log("username:", username);
         console.log("email:", email);
         console.log("password:", password);
         console.log("verificationToken:", verificationToken);
-
-        console.log("Datos recibidos en createUser:", { username, email, password, verificationToken });
+    
         if (username === undefined || email === undefined || password === undefined || verificationToken === undefined) {
             throw new Error("Uno de los parámetros es undefined");
         }
-
-        const queryStr =  `
-        INSERT INTO USERS (username, email, password, verificationToken)
-        VALUES (?, ?, ?, ?)
-        `
-        /* 
-        pool.execute devuelve un array 
-        [result, fields]
-        result es la respuesta resultante de la consulta
-        fields es un array de objetos con los campos de la tabla
-        */
+    
+        // Verificación antes de insertar en la base de datos
+        console.log("Preparando para ejecutar la consulta SQL con estos valores:");
+        console.log("username:", username);
+        console.log("email:", email);
+        console.log("password:", password);
+        console.log("verificationToken:", verificationToken);
+    
+        const queryStr = `
+            INSERT INTO USERS (username, email, password, verificationToken)
+            VALUES (?, ?, ?, ?)
+        `;
+    
         const [result, fields] = await pool.execute(
             queryStr,
             [username, email, password, verificationToken]
-        )
+        );
+        console.log("Resultado de la inserción en la base de datos:", result);
+        console.log("ID insertado:", result.insertId);
+    
         return {
             _id: result.insertId,
             username, 
             email
-        }
+        };
     }
 
     async findUserByEmail (email){
