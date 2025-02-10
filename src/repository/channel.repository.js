@@ -36,7 +36,7 @@ class ChannelRepository{
     async getChannelById (channel_id) {
         const query = `SELECT * FROM channels WHERE _id = ?`
         const [channels] = await pool.execute(query, [channel_id])
-        return channels
+        return channels.length > 0 ? channels[0] : null;
     }
 }
 
