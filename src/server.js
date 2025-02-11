@@ -22,7 +22,7 @@ import { authMiddleware } from './middlewares/auth.middleware.js';
 
 app.use("/api/status", statusRoute);
 app.use("/api/auth", authRouter);
-app.use("/api/workspaces", authMiddleware, workspaceRouter); // Aplica el middleware de autenticación aquí
+app.use("/api/workspace", authMiddleware, workspaceRouter); // Aplica el middleware de autenticación aquí
 app.use("/api/channel", channelRouter);
 
 app.get('/test', (req, res) => {
