@@ -125,7 +125,7 @@ class WorkspaceRepository {
         const querySelectChannels = `
             SELECT c._id AS channel_id, c.name AS channel_name
             FROM channels c
-            JOIN workspace_members wm ON wm.workspace_id = c.workspace_id
+            JOIN workspace_members wm ON wm.workspace_id = c.workspace
             WHERE wm.user_id = ? AND c.workspace_id = ?
         `;
 
