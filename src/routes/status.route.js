@@ -12,7 +12,7 @@ statusRoute.get('/ping', (request, response)=>{
 })
 
 
-statusRoute.get('/protected/ping', middlewareDePrueba, authMiddleware,  (request, response) =>{
+statusRoute.get('/protected/ping',  authMiddleware,  (request, response) =>{
     try{
         console.log(request.headers.user)
         response.sendStatus(200)
