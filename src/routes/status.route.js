@@ -1,14 +1,7 @@
-
-
-//la configuracion del enrutador de status
-
 import express from 'express'
-
-import ENVIROMENT from '../config/enviroment.js'
 import { authMiddleware } from '../middlewares/auth.middleware.js'
 import { middlewareDePrueba } from '../middlewares/luck.middleware.js'
 const statusRoute = express.Router()
-
 
 statusRoute.get('/ping', (request, response)=>{
     response.json({
@@ -19,10 +12,6 @@ statusRoute.get('/ping', (request, response)=>{
 })
 
 
-
-
-
-//Imaginemos que esta operacion solo la puede hacer alguien que este logueado
 statusRoute.get('/protected/ping', middlewareDePrueba, authMiddleware,  (request, response) =>{
     try{
         console.log(request.headers.user)

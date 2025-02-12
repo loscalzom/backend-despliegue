@@ -1,43 +1,31 @@
 import pool from "../config/mysql.config.js";
-import User from "../models/User.model.js";
 
 class UserRepository{
    
     async createUser({ username, email, password, verificationToken }) {
-        console.log("Datos recibidos en createUser:");
-        console.log("username:", username);
-        console.log("email:", email);
-        console.log("password:", password);
-        console.log("verificationToken:", verificationToken);
-    
+        
         if (username === undefined || email === undefined || password === undefined || verificationToken === undefined) {
-            throw new Error("Uno de los parámetros es undefined");
+            throw new Error("Uno de los parámetros es undefined")
         }
     
-        // Verificación antes de insertar en la base de datos
-        console.log("Preparando para ejecutar la consulta SQL con estos valores:");
-        console.log("username:", username);
-        console.log("email:", email);
-        console.log("password:", password);
-        console.log("verificationToken:", verificationToken);
-    
+           
         const queryStr = `
             INSERT INTO USERS (username, email, password, verificationToken)
             VALUES (?, ?, ?, ?)
-        `;
+        `
     
         const [result, fields] = await pool.execute(
             queryStr,
             [username, email, password, verificationToken]
-        );
-        console.log("Resultado de la inserción en la base de datos:", result);
-        console.log("ID insertado:", result.insertId);
+        )
+        console.log("Resultado de la inserción en la base de datos:", result)
+        console.log("ID insertado:", result.insertId)
     
         return {
             _id: result.insertId,
             username, 
             email
-        };
+        }
     }
 
     async findUserByEmail (email){

@@ -8,12 +8,12 @@ import {
     getChannelsByWorkspaceIdAndUserIdController
 } from '../controllers/workspace.controller.js';
 
-const workspaceRouter = express.Router();
+const workspaceRouter = express.Router()
 
-workspaceRouter.post("/", authMiddleware, createWorkspaceController);
-workspaceRouter.post('/:workspace_id/invite', authMiddleware, inviteUserToWorkspaceController);
-workspaceRouter.get('/', authMiddleware, getWorkspacesController);
-workspaceRouter.get('/:workspace_id', authMiddleware, getWorkspaceByIdController);
-workspaceRouter.get('/:workspace_id/channels', authMiddleware, getChannelsByWorkspaceIdAndUserIdController);
+workspaceRouter.post("/", authMiddleware, createWorkspaceController)
+workspaceRouter.post('/:workspace_id/invite', authMiddleware, inviteUserToWorkspaceController)
+workspaceRouter.get('/', authMiddleware, getWorkspacesController)
+workspaceRouter.get('/:workspace_id', authMiddleware, getWorkspaceByIdController)
+workspaceRouter.get('/:workspace_id/channels', authMiddleware, getChannelsByWorkspaceIdAndUserIdController)
 
 export default workspaceRouter;

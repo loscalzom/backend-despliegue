@@ -17,12 +17,11 @@ import authRouter from './routes/auth.route.js';
 import workspaceRouter from './routes/workspace.route.js';
 import channelRouter from './routes/channel.route.js';
 
-// Importa tu middleware de autenticación
 import { authMiddleware } from './middlewares/auth.middleware.js';
 
 app.use("/api/status", statusRoute);
 app.use("/api/auth", authRouter);
-app.use("/api/workspace", authMiddleware, workspaceRouter); // Aplica el middleware de autenticación aquí
+app.use("/api/workspace", authMiddleware, workspaceRouter); 
 app.use("/api/channel", channelRouter);
 
 app.get('/test', (req, res) => {
