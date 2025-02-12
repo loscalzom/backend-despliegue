@@ -136,7 +136,7 @@ export const loginController = async (req, res) => {
                 errors: errors,
             });
         }
-
+        
         const user_found = await UserRepository.findUserByEmail(email);
         console.log(user_found);
         if (!user_found) {
@@ -146,6 +146,14 @@ export const loginController = async (req, res) => {
                 message: "There is no user with this email",
             });
         }
+
+        if (!user_found.verified) {
+            return res.status(403).json({
+                ok: false,
+                message: "User is not verified. Please check your email to verify your account.",
+            });
+        }
+
         const is_same_password = await bcrypt.compare(password, user_found.password);
         if (!is_same_password) {
             return res.json({
@@ -178,7 +186,7 @@ export const loginController = async (req, res) => {
             data: {
                 user_info: {
                     id: user_found._id,
-                    name: user_found.name,
+                    name: user_found.username,
                     email: user_found.email,
                 },
                 access_token: access_token,
