@@ -1,11 +1,3 @@
-/*
-Crear el modelo del channel 
-name
-workspace => referencia a la coleccion de workspaces
-createdBy => referencia a la coleccion de User
-createdAt
-modifiedAt
-*/
 
 import mongoose from "mongoose";
 const channelSchema = new mongoose.Schema({
