@@ -58,6 +58,23 @@ class UserRepository{
         console.log('Update result:', result);
         return result;
     }
+
+    async updateUserVerificationToken(userId, verificationToken) {
+        const queryStr = `
+            UPDATE USERS
+            SET verificationToken = ?
+            WHERE _id = ?
+        `;
+        const [result] = await pool.execute(queryStr, [verificationToken, userId]);
+        console.log('Update result:', result);
+        return result;
+    }
+
+
+
 }
+
+
+
 
 export default new UserRepository()
